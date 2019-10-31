@@ -1,0 +1,94 @@
+<aura:component controller="fetchAccount" implements="force:appHostable,forceCommunity:availableForAllPageTypes,force:hasRecordId" access="global">
+    <!-- HELPER COMPONENT-->
+    <c:PNR_Helper aura:id="Helper"/>'    <aura:dependency resource="markup://force:*" type="EVENT"/>
+    
+    <aura:handler name="init" value="{!this}" action="{! c.doInit }"/>
+    <aura:attribute name="medicines" type="Object"/>
+    <aura:attribute name="columns" type="List"/>
+    <aura:attribute name="user" type="string"/>
+    <aura:attribute name="addMeds" type="boolean" default="false"/>
+    
+    <aura:attribute name="geneName" type="String"/>
+    <aura:attribute name="branName" type="String"/>
+    <aura:attribute name="quantity" type="Integer"/>
+    
+    <!-- HANDLER -->    
+    
+    <div class="slds-align_absolute-center slds-einstein-header" style="font-size:4rem"><b>Easy Med</b></div>
+    
+    <lightning:layout multipleRows="true" class="searchbar">
+        <lightning:layoutItem size="4" class="slds-align-middle">
+            <lightning:input aura:id="search" placeholder="Search" type="search"/>
+        </lightning:layoutItem>  
+        <lightning:layoutItem size="3" class="slds-p-horizontal_x-small">
+            <lightning:button label="Search" title="Search" onclick="{! c.search }"/>   
+            <lightning:button label="add" title="add" onclick="{! c.addMed }"/>   
+        </lightning:layoutItem>
+    </lightning:layout>
+    <hr></hr>
+    <h2>Store owner id: {!v.user}</h2>
+    <div style="height: 400px;overflow-y: auto;margin-top: 40px;">
+        <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered">
+        <thead >
+            <tr class="slds-line-height_reset">
+                <th class="" scope="col">
+                    <div class="slds-truncate" title="Opportunity Name">Generic Name</div>
+                </th>
+                <th class="" scope="col">
+                    <div class="slds-truncate" title="Account Name">Brand Name</div>
+                </th>
+                <th class="" scope="col">
+                    <div class="slds-truncate" title="Close Date">Quantity</div>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <aura:iteration items="{!v.medicines}" var="item">
+                <tr class="slds-hint-parent">
+                    <td data-label="Account Name">
+                        <div class="slds-truncate" title="Cloudhub">{!item.Medicine__r.Generic_Name__c}</div>
+                    </td>
+                    <td data-label="Close Date">
+                        <div class="slds-truncate" title="4/14/2015">{!item.Medicine__r.Brand_Name__c}</div>
+                    </td>
+                    <td data-label="Prospecting">
+                        <div class="slds-truncate" title="Prospecting">{!item.Quantity__c}</div>
+                    </td>
+                </tr>
+            </aura:iteration>
+            
+        </tbody>
+    </table>
+    </div>
+
+    <aura:if isTrue="{! v.addMeds}">
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open"> 
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <lightning:layoutItem size="12" padding="around-small">
+                        <span class="slds-text-heading_large slds-align_absolute-center">Add Medicine</span>
+                    </lightning:layoutItem>
+                </header>
+                
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <lightning:input aura:id="genName" label="Generic Name:" value="{! v.geneName }" required="true"/>
+                    <lightning:input aura:id="branName" label="Brand Name:" value="{! v.branName }" required="true"/>
+                    <lightning:input aura:id="quan" label="Quantity:" value="{! v.quantity }" required="true"/>
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning:layout multipleRows="true">
+                        <lightning:layoutItem size="8">
+                            
+                        </lightning:layoutItem>
+                        <lightning:layoutItem size="4">
+                            <lightning:button label="Submit" title="Submit" onclick="{! c.Submit }"/>
+                            <lightning:button label="Exit" title="Exit" onclick="{! c.Exit }"/>   
+                        </lightning:layoutItem>
+                    </lightning:layout>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </aura:if>
+    
+</aura:component>

@@ -1,0 +1,66 @@
+<aura:component implements="force:appHostable,forceCommunity:availableForAllPageTypes" access="global" controller="fetchAccount">
+    
+    
+    <aura:handler name="init" value="{!this}" action="{! c.doInit }"/>
+    
+    <!-- HELPER COMPONENT-->
+    <c:PNR_Helper aura:id="Helper"/>
+    <aura:attribute name="icon" type="String"/>
+    <aura:attribute name="user" type="String"/>
+    <aura:attribute name="pass" type="String"/>
+    <div class="loginForm" onkeyup="{! c.onEnterPress }" style="height: 100%;
+                                                                width: 100%; 
+                                                                position: fixed;
+                                                                display: flex; 
+                                                                align-items: center; 
+                                                                top: 0;
+                                                                left: 0; 
+                                                                padding: 10px;">
+        
+        <lightning:layout multipleRows="true" verticalAlign="center" class="slds-align_absolute-center">
+            <div class="loginCard">
+                <center><lightning:icon class="icn slds-m-top_medium" name="icon" size="large" iconName="utility:expand_all"></lightning:icon></center>
+                <lightning:layoutItem size="12" padding="around-small">
+                    
+                    <span class="slds-text-heading_large slds-align_absolute-center"><b>Login</b></span>
+                </lightning:layoutItem>  
+                
+                <lightning:layoutItem size="12" padding="horizontal-small">
+                    <!-- first inputfield-->
+                    <!--  <div class="slds-form-element">
+                        <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_left">
+                            <lightning:icon iconName="utility:user" size="x-small" title="" />
+                            <lightning:input aura:id="username" id="username" name="username" label="Username" placeholder="Input Username"/>
+                        </div>
+                    </div>-->
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label" for="text-input-id-1">Input Username</label>
+                        <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_left">
+                            <lightning:icon class="slds-icon slds-input__icon slds-input__icon_left slds-icon-text-default" iconName="utility:user" size="x-small"/>
+                            <input type="text" aura:id="username" id="username" name="username" label="Username" class="slds-input" placeholder="Username"/>
+                        </div>
+                    </div>
+                </lightning:layoutItem>                  
+                
+                <lightning:layoutItem size="12" padding="around-small">
+                    <!-- first inputfield for password -->
+                    <!--<lightning:input aura:id="password" id="password" name="password" label="Password" placeholder="Input Password"/>-->
+                      <div class="slds-form-element">
+                        <label class="slds-form-element__label" for="text-input-id-1">Input Password</label>
+                        <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_left">
+                            <lightning:icon class="slds-icon slds-input__icon slds-input__icon_left slds-icon-text-default" iconName="utility:password" size="x-small"/>
+                            <input type="password" aura:id="password" id="password" name="password" label="Password" class="slds-input" placeholder="Password" value="" />
+                        </div>
+                    </div>
+                </lightning:layoutItem> 
+                
+                <lightning:layoutItem size="12" padding="around-small">
+                    <span class="slds-align_absolute-center slds-m-bottom_large" >
+                        <lightning:button label="Submit" variant="brand" title="Submit" onclick="{! c.checkLogin }"/>
+                        <lightning:button label="Clear" title="Clear" onclick="{! c.clear }"/>
+                    </span>
+                </lightning:layoutItem>
+            </div>
+        </lightning:layout>
+    </div>
+</aura:component>

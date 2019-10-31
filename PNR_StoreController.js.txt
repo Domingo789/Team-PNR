@@ -1,0 +1,29 @@
+({
+    doInit : function(component, event, helper) {
+        helper.setColumnDefinitions(component, event, helper)
+        helper.getUserPrivilege(component, event, helper)
+    },
+    
+	search : function(component, event, helper) {
+        let item = component.find('search').get('v.value');
+        helper.search(component, event, item)
+    },
+    
+    addMed : function(component, event, helper) {
+        component.set("v.addMeds", true)
+    },
+    
+    Submit : function(component, event, helper) {
+        alert('submit')
+        let gname = component.get("v.geneName")
+        let bname = component.get("v.branName")
+        let quant =  component.get("v.quantity")
+        
+        helper.submit(component, gname,bname,quant)
+    },
+    
+    Exit : function(component, event, helper) {
+        component.set("v.addMeds", false)
+    },
+ 
+})
